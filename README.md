@@ -1,5 +1,7 @@
 [![CI](https://github.com/Neo-Ciber94/simple_discordbot/actions/workflows/ci.yml/badge.svg)](https://github.com/Neo-Ciber94/simple_discordbot/actions/workflows/ci.yml)
 
+[![CD](https://github.com/Neo-Ciber94/simple_discordbot/actions/workflows/cd.yml/badge.svg)](https://github.com/Neo-Ciber94/simple_discordbot/actions/workflows/cd.yml)
+
 # Simple Discord Bot
 
 A simple framework to create events and commands for a discord bot using `discord.js`
