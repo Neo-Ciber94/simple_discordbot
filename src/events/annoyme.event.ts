@@ -17,7 +17,7 @@ const spongeBobChickenImage = new Lazy(() => {
 });
 
 export default createListener({
-  event: "message",
+  event: "messageCreate",
   async execute(_, message) {
     const user = message.author;
     const annoyUsers = getAnnoyUserList();
