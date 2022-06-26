@@ -1,11 +1,15 @@
 import * as config from "./config";
 import { Client, Intents } from "discord.js";
 import { CommandHandler } from "./commands/command-handler";
+import { loadCommands } from "./commands";
+import { deployCommands } from "./deploy-commands";
 
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
 
 async function main() {
-  const commandHandler = await CommandHandler.fromCommandsDir("./commands");
+  const commands = await loadCommands("./commands");
+  const commandHandler = new CommandHandler(commands);
+  await deployCommands(commands);
 
   client.once("ready", () => {
     console.log("Ready!");
@@ -19,10 +23,10 @@ async function main() {
     const { commandName } = interaction;
 
     try {
-      if (!(await commandHandler.execute(commandName, interaction))) {
+      const result = await commandHandler.execute(commandName, interaction);
+      if (result == false) {
         console.error(`Command '${commandName}' was not found`);
       }
-      
     } catch (e) {
       console.error(e);
       await interaction.reply({
