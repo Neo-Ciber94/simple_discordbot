@@ -1,8 +1,9 @@
+import { RESTPostAPIApplicationCommandsJSONBody } from "discord-api-types/v9";
 import { CommandInteraction, CacheType } from "discord.js";
-import { ICommand, SlashCommandBuilderLike } from "../types/ICommand";
+import { ICommand } from "../types/ICommand";
 
 export interface CreateCommandOptions {
-  builder: SlashCommandBuilderLike;
+  info: RESTPostAPIApplicationCommandsJSONBody;
   execute: (interaction: CommandInteraction<CacheType>) => Promise<void>;
 }
 

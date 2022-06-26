@@ -13,7 +13,7 @@ type RandomWaifuResponse = {
 };
 
 class RandomWaifuCommand implements ICommand {
-  readonly builder = new SlashCommandBuilder()
+  readonly info = new SlashCommandBuilder()
     .setName("waifu")
     .setDescription("Gets a random waifu image")
     .addStringOption((option) =>
@@ -24,7 +24,8 @@ class RandomWaifuCommand implements ICommand {
           { name: Category.SFW, value: Category.SFW },
           { name: Category.NSFW, value: Category.NSFW }
         )
-    );
+    )
+    .toJSON();
 
   async execute(interaction: CommandInteraction<CacheType>): Promise<void> {
     await interaction.reply("Searching image..."); // We defer the reply to avoid timeout
@@ -38,7 +39,7 @@ class RandomWaifuCommand implements ICommand {
 
     const json = (await res.json()) as RandomWaifuResponse;
     const { url } = json;
-    await interaction.editReply({ files: [url] });
+    await interaction.editReply({ content: "Here your waifu", files: [url] });
   }
 }
 

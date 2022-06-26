@@ -14,12 +14,7 @@ export function loadCommands(commandsDir: string): ICommand[] {
     const { default: obj } = require(commandFilePath); // Is only run once, not problem with be sync
 
     const command = obj as Partial<ICommand>;
-    if (
-      typeof obj === "object" &&
-      command &&
-      command.builder &&
-      command.execute
-    ) {
+    if (typeof obj === "object" && command && command.info && command.execute) {
       commands.push(command as ICommand);
     }
   }

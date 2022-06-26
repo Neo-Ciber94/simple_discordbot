@@ -1,10 +1,11 @@
-import { SlashCommandBuilder } from "@discordjs/builders";
+import { RESTPostAPIApplicationCommandsJSONBody } from "discord-api-types/v9";
 import { CommandInteraction } from "discord.js";
-
-export type SlashCommandBuilderLike = Partial<SlashCommandBuilder> &
-  Pick<SlashCommandBuilder, "toJSON">;
+import { DiscordBotContext } from "../core/discordbot";
 
 export interface ICommand {
-  readonly builder: SlashCommandBuilderLike;
-  execute(interaction: CommandInteraction): Promise<void> | void;
+  readonly info: RESTPostAPIApplicationCommandsJSONBody;
+  execute(
+    interaction: CommandInteraction,
+    context: DiscordBotContext
+  ): Promise<void> | void;
 }

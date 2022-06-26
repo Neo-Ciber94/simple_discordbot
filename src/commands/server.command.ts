@@ -3,9 +3,10 @@ import { CommandInteraction, CacheType } from "discord.js";
 import { ICommand } from "../types/ICommand";
 
 class ServerCommand implements ICommand {
-  readonly builder = new SlashCommandBuilder()
+  readonly info = new SlashCommandBuilder()
     .setName("server")
-    .setDescription("Replies with server info!");
+    .setDescription("Replies with server info!")
+    .toJSON();
 
   async execute(interaction: CommandInteraction<CacheType>) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

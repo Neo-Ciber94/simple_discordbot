@@ -1,29 +1,24 @@
 import { ICommand } from "../types/ICommand";
 import { CommandInteraction } from "discord.js";
-
-type IExecutableCommand = Pick<ICommand, "execute"> & { name: string };
+import { DiscordBotContext } from "./discordbot";
 
 export class CommandHandler {
-  readonly commands = new Map<string, IExecutableCommand>();
+  readonly commands = new Map<string, ICommand>();
 
   constructor(commands: ICommand[]) {
     for (const command of commands) {
-      const json = command.builder.toJSON();
-      const name = json.name;
-
-      this.commands.set(json.name, {
-        name,
-        execute: command.execute,
-      });
+      const name = command.info.name;
+      this.commands.set(name, command);
     }
   }
 
-  get(name: string): IExecutableCommand | undefined {
+  get(name: string): ICommand | undefined {
     return this.commands.get(name);
   }
 
   async execute(
     name: string,
+    context: DiscordBotContext,
     interaction: CommandInteraction
   ): Promise<boolean> {
     const command = this.get(name);
@@ -32,7 +27,7 @@ export class CommandHandler {
       return false;
     }
 
-    await command.execute(interaction);
+    await command.execute(interaction, context);
     return true;
   }
 }

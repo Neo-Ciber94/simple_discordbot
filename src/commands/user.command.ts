@@ -3,9 +3,10 @@ import { CommandInteraction, CacheType } from "discord.js";
 import { ICommand } from "../types/ICommand";
 
 class UserCommand implements ICommand {
-  readonly builder = new SlashCommandBuilder()
+  readonly info = new SlashCommandBuilder()
     .setName("user")
-    .setDescription("Replies with user info!");
+    .setDescription("Replies with user info!")
+    .toJSON();
 
   async execute(interaction: CommandInteraction<CacheType>) {
     await interaction.reply(

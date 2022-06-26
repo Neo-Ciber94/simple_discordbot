@@ -1,19 +1,25 @@
-import { commands } from "..";
 import { CommandHandler } from "../core/command-handler";
 import { createListener } from "../utils/createListener";
 
-const commandHandler = new CommandHandler(commands);
+let commandHandler: CommandHandler;
 
 export default createListener({
   event: "interactionCreate",
-  async execute(interaction) {
+  async execute(context, interaction) {
     if (interaction == null || !interaction.isCommand()) {
       return;
     }
 
+    // We only create the handler once
+    commandHandler ??= new CommandHandler(context.commands);
+
     const { commandName } = interaction;
     try {
-      const result = await commandHandler.execute(commandName, interaction);
+      const result = await commandHandler.execute(
+        commandName,
+        context,
+        interaction
+      );
       if (result == false) {
         console.error(`Command '${commandName}' was not found`);
       }

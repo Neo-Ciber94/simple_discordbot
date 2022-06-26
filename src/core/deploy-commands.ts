@@ -4,7 +4,7 @@ import { ICommand } from "../types/ICommand";
 import * as config from "../config";
 
 export async function deployCommands(commands: ICommand[]) {
-  const commandsJsonBody = commands.map((c) => c.builder.toJSON());
+  const commandsJsonBody = commands.map((c) => c.info);
   const rest = new REST({ version: "9" }).setToken(config.DISCORD_TOKEN);
 
   rest
