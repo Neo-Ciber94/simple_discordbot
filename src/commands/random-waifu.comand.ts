@@ -28,6 +28,8 @@ class RandomWaifuCommand implements ICommand {
     .toJSON();
 
   async execute(interaction: CommandInteraction<CacheType>): Promise<void> {
+    await interaction.reply("Searching image..."); // We defer the reply to avoid timeout
+
     const category = interaction.options.getString("category") || Category.SFW;
     const res = await fetch(`https://api.waifu.pics/${category}/waifu`);
 
@@ -37,7 +39,7 @@ class RandomWaifuCommand implements ICommand {
 
     const json = (await res.json()) as RandomWaifuResponse;
     const { url } = json;
-    await interaction.reply({ files: [url] });
+    await interaction.editReply({ files: [url] });
   }
 }
 
