@@ -28,7 +28,7 @@ export default createListener({
 
     const annoyingMessage = getAnnoyingMessage(message.content);
     const canUseImage = Math.random() > 0.7;
-    const attachment = new MessageAttachment(spongeBobChickenImage.value());
+    const attachment = new MessageAttachment(spongeBobChickenImage.value);
 
     await message.reply({
       content: annoyingMessage,

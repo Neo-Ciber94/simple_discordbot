@@ -20,7 +20,11 @@ export class Lazy<T> {
     };
   }
 
-  value(): T {
+  get isInitialized() {
+    return this.#value.state === "init";
+  }
+
+  get value(): T {
     const value = this.#value;
     let obj: T;
 
