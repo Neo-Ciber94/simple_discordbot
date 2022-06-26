@@ -4,7 +4,7 @@ import { ICommand } from "../types/ICommand";
 
 export interface CreateCommandOptions {
   info: RESTPostAPIApplicationCommandsJSONBody;
-  execute: (interaction: CommandInteraction<CacheType>) => Promise<void>;
+  execute: (interaction: CommandInteraction<CacheType>) => Promise<void> | void;
 }
 
 // Nothing fancy, just forwards
