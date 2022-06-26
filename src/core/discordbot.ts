@@ -8,6 +8,7 @@ import { getArray } from "../utils/getArray";
 import { loadCommands } from "./commands";
 import { deployCommands } from "./deploy-commands";
 import { loadEventListeners } from "./events";
+import * as kleur from "kleur";
 
 export interface DiscordBotOptions {
   client: Client;
@@ -52,13 +53,27 @@ export class DiscordBot {
     this.#listeners = listeners;
   }
 
-  private getContext(): DiscordBotContext {
+  #getContext(): DiscordBotContext {
     return {
       client: this.client,
       commands: [...this.#commands],
       listeners: [...this.#listeners],
       startTime: this.#startTime ?? new Date(), // This is not the actual start date
     };
+  }
+
+  #logCommands() {
+    for (const command of this.#commands) {
+      logger.debug(`Command ${kleur.green(command.info.name)} was registered`);
+    }
+  }
+
+  #logListeners() {
+    for (const listeners of this.#listeners) {
+      logger.debug(
+        `Listener for event ${kleur.green(listeners.event)} was registered`
+      );
+    }
   }
 
   /**
@@ -68,7 +83,7 @@ export class DiscordBot {
   async loginAndStart(token: string) {
     try {
       await deployCommands([...this.#commands]);
-      logger.debug("Successfully registered application commands");
+      logger.debug("Successfully deployed application commands");
     } catch (e) {
       logger.error(e);
       throw e;
@@ -77,18 +92,18 @@ export class DiscordBot {
     for (const listener of this.#listeners) {
       if (listener.once === true) {
         this.client.once(listener.event, (args) =>
-          listener.execute(this.getContext(), args)
+          listener.execute(this.#getContext(), args)
         );
       } else {
         this.client.on(listener.event, (args) =>
-          listener.execute(this.getContext(), args)
+          listener.execute(this.#getContext(), args)
         );
       }
     }
 
-    if (this.#listeners.length > 0) {
-      logger.debug("Registered event listeners");
-    }
+    // Debug information
+    this.#logCommands();
+    this.#logListeners();
 
     await this.client.login(token);
     this.#startTime = new Date();

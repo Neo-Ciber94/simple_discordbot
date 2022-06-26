@@ -2,7 +2,6 @@ import { REST } from "@discordjs/rest";
 import { Routes } from "discord-api-types/v9";
 import { ICommand } from "../types/ICommand";
 import * as config from "../config";
-import logger from "../logger";
 
 export async function deployCommands(commands: ICommand[]) {
   const commandsJsonBody = commands.map((c) => c.info);
