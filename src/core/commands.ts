@@ -5,14 +5,12 @@ import { ICommand } from "../types/ICommand";
 
 export function loadCommands(commandsDir: string): ICommand[] {
   const commands: ICommand[] = [];
-  const commandsPath = path.join(__dirname, commandsDir);
-
   const commandFiles = fs
-    .readdirSync(commandsPath)
+    .readdirSync(commandsDir)
     .filter((f) => f.endsWith(".js"));
 
   for (const file of commandFiles) {
-    const commandFilePath = path.join(commandsPath, file);
+    const commandFilePath = path.join(commandsDir, file);
     const { default: obj } = require(commandFilePath); // Is only run once, not problem with be sync
 
     const command = obj as Partial<ICommand>;
