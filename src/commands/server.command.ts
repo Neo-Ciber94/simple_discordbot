@@ -1,12 +1,11 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, CacheType } from "discord.js";
-import { ICommand } from "./interfaces/ICommand";
+import { ICommand } from "../types/ICommand";
 
 class ServerCommand implements ICommand {
-  readonly info = new SlashCommandBuilder()
+  readonly builder = new SlashCommandBuilder()
     .setName("server")
-    .setDescription("Replies with server info!")
-    .toJSON();
+    .setDescription("Replies with server info!");
 
   async execute(interaction: CommandInteraction<CacheType>) {
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion

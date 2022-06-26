@@ -1,7 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, CacheType } from "discord.js";
 import fetch from "node-fetch";
-import { ICommand } from "./interfaces/ICommand";
+import { ICommand } from "../types/ICommand";
 
 export enum Category {
   SFW = "sfw",
@@ -13,8 +13,9 @@ type RandomWaifuResponse = {
 };
 
 class RandomWaifuCommand implements ICommand {
-  readonly info = new SlashCommandBuilder()
+  readonly builder = new SlashCommandBuilder()
     .setName("waifu")
+    .setDescription("Gets a random waifu image")
     .addStringOption((option) =>
       option
         .setName("category")
@@ -23,9 +24,7 @@ class RandomWaifuCommand implements ICommand {
           { name: Category.SFW, value: Category.SFW },
           { name: Category.NSFW, value: Category.NSFW }
         )
-    )
-    .setDescription("Gets a random waifu image")
-    .toJSON();
+    );
 
   async execute(interaction: CommandInteraction<CacheType>): Promise<void> {
     await interaction.reply("Searching image..."); // We defer the reply to avoid timeout

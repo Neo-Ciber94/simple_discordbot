@@ -1,12 +1,11 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, CacheType } from "discord.js";
-import { ICommand } from "./interfaces/ICommand";
+import { ICommand } from "../types/ICommand";
 
 class PingCommand implements ICommand {
-  readonly info = new SlashCommandBuilder()
+  readonly builder = new SlashCommandBuilder()
     .setName("ping")
-    .setDescription("Replies with pong!")
-    .toJSON();
+    .setDescription("Replies with pong!");
 
   async execute(interaction: CommandInteraction<CacheType>) {
     await interaction.reply("Pong!");
