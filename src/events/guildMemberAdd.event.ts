@@ -3,20 +3,22 @@ import logger from "../logger";
 import { Client, GuildMember, MessageEmbed, TextChannel } from "discord.js";
 import * as config from "../config";
 
-const CHANNEL_ID = config.GENERAL_CHANNEL_ID;
-
 export default createListener({
   event: "guildMemberAdd",
-  execute: (context, member) => sendWelcomeMessage(context.client, member),
+  execute: (context, member) => sendWelcomeMessage(context.client, member, config.GENERAL_CHANNEL_ID),
 });
 
-export async function sendWelcomeMessage(client: Client, member: GuildMember) {
+export async function sendWelcomeMessage(
+  client: Client,
+  member: GuildMember,
+  channelId: string
+) {
   const botUser = client.user;
   const newUser = member.user;
   const serverName = member.guild.name;
 
   const channel = member.guild.channels.cache.find(
-    (c) => c.id === CHANNEL_ID
+    (c) => c.id === channelId
   ) as TextChannel;
 
   if (botUser == null) {
@@ -25,7 +27,7 @@ export async function sendWelcomeMessage(client: Client, member: GuildMember) {
   }
 
   if (channel == null) {
-    logger.error(`Channel '${CHANNEL_ID}' was not found`);
+    logger.error(`Channel '${channelId}' was not found`);
     return;
   }
 

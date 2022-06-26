@@ -17,6 +17,7 @@ class WelcomeCommand implements ICommand {
     context: DiscordBotContext
   ): Promise<void> {
     const client = context.client;
+    const channelId = interaction.channelId;
     const userId = interaction.user.id;
     const guild = interaction.guild;
 
@@ -34,7 +35,7 @@ class WelcomeCommand implements ICommand {
     }
 
     await interaction.reply("Welcome!");
-    await sendWelcomeMessage(client, member);
+    await sendWelcomeMessage(client, member, channelId);
   }
 }
 
