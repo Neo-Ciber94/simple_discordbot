@@ -4,3 +4,4 @@ dist/
 # Enviroments
 .env
 .env.*
+!.env.sample

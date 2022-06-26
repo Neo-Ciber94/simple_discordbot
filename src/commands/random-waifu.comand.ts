@@ -3,6 +3,7 @@ import { CommandInteraction, CacheType } from "discord.js";
 import fetch from "node-fetch";
 import logger from "../logger";
 import { ICommand } from "../types/ICommand";
+import * as config from "../config";
 
 export enum Category {
   SFW = "sfw",
@@ -30,8 +31,10 @@ class RandomWaifuCommand implements ICommand {
 
   async execute(interaction: CommandInteraction<CacheType>): Promise<void> {
     await interaction.reply("Searching image..."); // We defer the reply to avoid timeout
+    const category = config.ALLOW_NSFW
+      ? interaction.options.getString("category") || Category.SFW
+      : Category.SFW;
 
-    const category = interaction.options.getString("category") || Category.SFW;
     const res = await fetch(`https://api.waifu.pics/${category}/waifu`);
 
     if (!res.ok) {
