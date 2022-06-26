@@ -1,8 +1,12 @@
-[![CI](https://github.com/Neo-Ciber94/simple_discordbot/actions/workflows/ci.yml/badge.svg)](https://github.com/Neo-Ciber94/simple_discordbot/actions/workflows/ci.yml)
-
-[![CD](https://github.com/Neo-Ciber94/simple_discordbot/actions/workflows/cd.yml/badge.svg)](https://github.com/Neo-Ciber94/simple_discordbot/actions/workflows/cd.yml)
-
 # Simple Discord Bot
+
+[![CI][ci_badge]][ci] [![CD][cd_badge]][cd]
+
+[ci]: https://github.com/Neo-Ciber94/simple_discordbot/actions/workflows/ci.yml
+[cd]: https://github.com/Neo-Ciber94/simple_discordbot/actions/workflows/cd.yml
+[ci_badge]: https://github.com/Neo-Ciber94/simple_discordbot/actions/workflows/ci.yml/badge.svg
+[cd_badge]: https://github.com/Neo-Ciber94/simple_discordbot/actions/workflows/cd.yml/badge.svg
+
 
 A simple framework to create events and commands for a discord bot using `discord.js`
 
