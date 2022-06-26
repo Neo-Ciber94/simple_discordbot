@@ -1,3 +1,4 @@
+import logger from "../logger";
 import { createListener } from "../utils/createListener";
 
 export default createListener({
@@ -5,7 +6,7 @@ export default createListener({
   execute(_, interaction) {
     const channelId = interaction.channel?.id;
 
-    console.log(
+    logger.info(
       `${interaction.user.tag} in #${channelId} triggered an interaction.`
     );
   },

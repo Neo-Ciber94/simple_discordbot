@@ -1,6 +1,7 @@
 import { SlashCommandBuilder } from "@discordjs/builders";
 import { CommandInteraction, CacheType } from "discord.js";
 import fetch from "node-fetch";
+import logger from "../logger";
 import { ICommand } from "../types/ICommand";
 
 export enum Category {
@@ -34,7 +35,9 @@ class RandomWaifuCommand implements ICommand {
     const res = await fetch(`https://api.waifu.pics/${category}/waifu`);
 
     if (!res.ok) {
-      throw new Error(`${res.status} - ${res.statusText}`);
+      const text = await res.text();
+      logger.error(text);
+      return;
     }
 
     const json = (await res.json()) as RandomWaifuResponse;

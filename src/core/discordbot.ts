@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Client } from "discord.js";
+import logger from "../logger";
 import { ICommand } from "../types/ICommand";
 import { IEventListener } from "../types/IEventListener";
 import { getArray } from "../utils/getArray";
@@ -65,7 +66,13 @@ export class DiscordBot {
    * @param token The discord server token.
    */
   async loginAndStart(token: string) {
-    await deployCommands([...this.#commands]);
+    try {
+      await deployCommands([...this.#commands]);
+      logger.debug("Successfully registered application commands");
+    } catch (e) {
+      logger.error(e);
+      throw e;
+    }
 
     for (const listener of this.#listeners) {
       if (listener.once === true) {
@@ -79,7 +86,12 @@ export class DiscordBot {
       }
     }
 
+    if (this.#listeners.length > 0) {
+      logger.debug("Registered event listeners");
+    }
+
     await this.client.login(token);
     this.#startTime = new Date();
+    logger.info("Discord bot is running...");
   }
 }
