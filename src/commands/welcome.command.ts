@@ -33,6 +33,7 @@ class WelcomeCommand implements ICommand {
       return;
     }
 
+    await interaction.reply("Welcome!");
     await sendWelcomeMessage(client, member);
   }
 }
