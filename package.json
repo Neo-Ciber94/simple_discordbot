@@ -20,10 +20,11 @@
     "discord-api-types": "^0.35.0",
     "discord.js": "^13.8.1",
     "dotenv": "^16.0.1",
+    "got": ">=11.8.5",
     "kleur": "^4.1.4",
+    "node-abort-controller": "^3.0.1",
     "node-fetch": "^2.6.7",
-    "winston": "^3.8.0",
-    "got": ">=11.8.5"
+    "winston": "^3.8.0"
   },
   "devDependencies": {
     "@types/jest": "^28.1.3",
