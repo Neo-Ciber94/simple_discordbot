@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-non-null-assertion */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Client } from "discord.js";
+import { Client, User } from "discord.js";
 import logger from "../logger";
 import { ICommand } from "../types/ICommand";
 import { IEventListener } from "../types/IEventListener";
@@ -19,6 +19,7 @@ export interface DiscordBotOptions {
 }
 
 export interface DiscordBotContext {
+  user: User;
   client: Client;
   commands: ICommand[];
   listeners: IEventListener<any>[];
@@ -55,6 +56,7 @@ export class DiscordBot {
 
   #getContext(): DiscordBotContext {
     return {
+      user: this.client.user!,
       client: this.client,
       commands: [...this.#commands],
       listeners: [...this.#listeners],

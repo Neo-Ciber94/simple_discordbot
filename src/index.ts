@@ -4,7 +4,15 @@ import { Client, Intents } from "discord.js";
 import { DiscordBot } from "./core/discordbot";
 import logger from "./logger";
 
-const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS] });
+const client = new Client({
+  intents: [
+    Intents.FLAGS.GUILDS,
+    Intents.FLAGS.GUILD_MESSAGES,
+    Intents.FLAGS.GUILD_MEMBERS,
+    Intents.FLAGS.GUILD_MESSAGE_REACTIONS,
+  ],
+});
+
 const discordBot = new DiscordBot({
   client,
   commandsDir: path.join(__dirname, "commands"),
